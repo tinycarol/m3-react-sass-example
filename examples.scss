@@ -1,0 +1,146 @@
+/* this comment is included ---------------------------------- */
+// this comment is not  --------------------------------------
+
+// variables -------------------------------------------------
+$c-primary: hsl(212, 100%, 78%); // global
+
+.element {
+  color: $c-primary; // compiled to color: hsl(212, 100%, 78%);
+}
+
+.element {
+    color: red;
+}
+
+.element {
+  $b-color: red; // local
+
+  .child {
+    border-color: $b-color;
+  }
+}
+
+.otherElement {
+  $c-primary: hsl(212, 100%, 58%);
+
+  .child {
+    color: $c-primary;
+  }
+}
+
+// nesting ---------------------------------------------------
+
+.element {
+    color: blue;
+    background-color: red;
+
+  >.subelement {
+    color: red;
+  }
+}
+
+.class {
+    background-color: blue;
+    
+    &.otherClass {
+        color: red;
+    }
+
+  // pseudo-class
+  &:hover {
+    border-color: red;
+  }
+}
+
+.block {
+  color: black;
+
+  &__element {
+    color: red;
+
+    &--modifier {
+      color: blue;
+    }
+  }
+}
+
+// @rules -------------------------------------------------
+
+// @mixin -------------------------------------------------
+// @include -----------------------------------------------
+@mixin rounded-white-box {
+  border-radius: 6px;
+  background-color: hsl(0, 100%, 99%);
+  box-shadow: 0 1px 5px 0 hsla(0, 0%, 0%, 0.15);
+
+  &:hover {
+    background-color: hsl(0, 100%, 95%);
+  }
+}
+
+.component {
+  @include rounded-white-box;
+  padding: 20px;
+}
+
+.otherComponent {
+  @include rounded-white-box;
+  padding: 40px;
+}
+
+// @use --------------------------------------------------- DEPRECATED
+// @use 'other/absolute/file';              // @include file.myMyxin
+// @use 'other/absolute/file' as *;         // @include myMyxin
+// @use 'other/absolute/file' as otherName; // @include otherName.myMixin 
+
+// @import ------------------------------------------------
+// @import 'other/absolute/file';              // @include file.myMyxin
+// @import 'other/absolute/file' as *;         // @include myMyxin
+// @import 'other/absolute/file' as otherName; // @include otherName.myMixin
+
+// @extend ------------------------------------------------
+.error {
+  border: 1px #f00;
+  background-color: #fdd;
+
+  &--serious {
+    @extend .error;
+    border-width: 3px;
+  }
+}
+
+// placeholder selectors ----------------------------------
+%rounded-white-box {
+  border-radius: 6px;
+  background-color: hsl(0, 100%, 99%);
+  box-shadow: 0 1px 5px 0 hsla(0, 0%, 0%, 0.15);
+
+  &:hover {
+    background-color: hsl(0, 100%, 95%);
+  }
+}
+
+.component {
+  @extend %rounded-white-box;
+  padding: 20px;
+}
+
+.otherComponent {
+  @extend %rounded-white-box;
+  padding: 20px;
+}
+
+// interpolation ------------------------------------------
+@mixin corner-icon($name, $top-or-bottom, $left-or-right) {
+  .icon-#{$name} {
+    background-image: url("/icons/#{$name}.svg");
+    position: absolute;
+    #{$top-or-bottom}: 0;
+    #{$left-or-right}: 0;
+  }
+}
+
+@include corner-icon("comment", top, left);
+@include corner-icon("like", top, right);
+@include corner-icon("retweet", bottom, left);
+@include corner-icon("share", bottom, right);
