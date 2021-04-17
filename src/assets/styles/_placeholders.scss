@@ -1,0 +1,13 @@
+%rounded-white-box {
+  border-radius: 6px;
+  background-color: hsl(0, 100%, 99%);
+  box-shadow: 0 1px 5px 0 hsla(0, 0%, 0%, 0.15);
+
+  &:hover {
+    background-color: hsl(0, 100%, 95%);
+  }
+}
+
+%margin {
+  margin: 10px 20px;
+}

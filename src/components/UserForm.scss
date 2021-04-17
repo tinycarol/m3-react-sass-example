@@ -1,0 +1,7 @@
+@use "src/assets/styles/utils" as *;
+
+.UserForm {
+	@extend %rounded-white-box;
+	@extend %margin;
+	color: $c-primary;
+}
